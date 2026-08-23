@@ -1,0 +1,35 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Generated data is ignored by default; selected final deliverables are allowed below.
+data/raw/*
+data/processed/*
+data/scraping_failures.jsonl
+
+!data/raw/
+!data/raw/listing_urls.json
+!data/processed/
+!data/processed/listings.jsonl
+!data/processed/extraction_failures.jsonl
+!data/processed/gold_set_25.csv
+!data/processed/evaluation_results.json
+
+# Output
+output/*
+!output/
+!output/bayut_listings.xlsx
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
