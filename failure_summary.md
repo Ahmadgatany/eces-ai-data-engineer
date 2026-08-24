@@ -2,8 +2,11 @@
 
 - **Final result:** 700 unique URLs were collected; 696 listings were
   extracted successfully and 4 remained unresolved.
-- **Deleted listings:** the four final failures returned HTTP 404, indicating
-  that Bayut no longer served those detail pages. They remain in
+- **Unavailable listings:** the four URLs were collected successfully during
+  the listing-discovery stage, but their detail-page requests later returned
+  HTTP 404. This means Bayut reported the pages as unavailable at extraction
+  time, consistent with listings being removed or unpublished after discovery;
+  it was not a parsing or OpenRouter failure. They remain in
   `data/processed/extraction_failures.jsonl` with one entry each.
 - **Temporary DNS failures:** some requests returned `DNSError` / `Could not
   resolve host`. The pipeline retries transient DNS and timeout errors three

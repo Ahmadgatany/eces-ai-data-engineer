@@ -57,8 +57,10 @@ python -m src.pipeline --failed-only
 
 ## Limitations
 
-The detail pages can be deleted or temporarily unavailable. Free-text wording
-is inconsistent across agents and languages, so a model can miss an implicit
+The detail pages can be deleted or temporarily unavailable. In the final run,
+four URLs collected during discovery returned HTTP 404 when their detail pages
+were fetched later; these are source-availability failures rather than parser
+failures. Free-text wording is inconsistent across agents and languages, so a model can miss an implicit
 payment term or normalize a location imperfectly. A free model provider can
 also return timeouts, rate limits, or upstream overload responses. The retry
 policy limits each listing to two retries after the initial request. Null is
