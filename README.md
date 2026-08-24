@@ -69,8 +69,7 @@ preferred whenever the page does not provide explicit evidence.
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\pip install -r requirements.txt
-Copy-Item .env.example .env
-# Set OPENROUTER_API_KEY and OPENROUTER_MODEL in .env
+# Create a local .env file and set OPENROUTER_API_KEY and OPENROUTER_MODEL
 python -m src.scraper
 python -m src.pipeline
 python -m src.evaluate
