@@ -1,9 +1,9 @@
-# Short Analysis: Sale Versus Rent in the Collected Sample
+# Short Analysis: Geographic and Property-Type Price Differences
 
 ## Research question
 
-What does the collected sample say about the scale of advertised sale prices
-versus monthly rents, and is the result driven by one governorate?
+How different are advertised sale prices per square meter across governorates,
+and is property type a larger source of variation than geography?
 
 ## Evidence
 
@@ -12,21 +12,31 @@ Coverage is geographically balanced by the configured collection targets:
 Cairo 346 listings, Giza 210, and Alexandria 140. All 696 records have a
 positive advertised area and a computed `price_per_sqm`.
 
-The median advertised sale price is 10,500,000 EGP, while the median advertised
-rent is 36,000 EGP per month. These are intentionally reported as medians,
-because listing prices are strongly affected by a small number of luxury and
-large-unit advertisements. The ratio is not interpreted as a yield: sale and
-rent listings are not matched on the same property, and the collection is a
-portal sample rather than a probability sample.
+For sale listings, median advertised price per square meter is 59,296 EGP in
+Cairo (n=276), 60,000 EGP in Giza (n=140), and 42,829 EGP in Alexandria
+(n=70). Alexandria is therefore about 28% below Cairo on this measure:
+`1 - 42,829 / 59,296 = 27.8%`. The gap is large enough to be a useful
+descriptive signal, but it is not a causal estimate because the sample is not
+weighted and property mix differs by governorate.
+
+Property type shows an even stronger contrast in the sale sample. Apartments
+have a median of 45,802 EGP per square meter (n=263), while villas have
+75,000 EGP (n=143), about 64% higher. Townhouses are also high at 77,755 EGP
+(n=37). This suggests that controlling for property type is essential before
+interpreting geographic price differences.
+
+For rent listings, the corresponding median price per square meter is 389 EGP
+in Cairo (n=70), 297 EGP in Giza (n=70), and 126 EGP in Alexandria (n=70).
+Rent per-square-meter is not a yield measure because sale and rent records are
+different advertisements and are not matched on the same units.
 
 ## Interpretation
 
-The useful finding is the composition of the sample rather than a claim about
-the whole Egyptian market. Sale listings outnumber rent listings by 486 to
-210, while the three-governorate coverage prevents the result from being only a
-Cairo observation. The dataset can support a stronger follow-up question, such
-as comparing median `price_per_sqm` by purpose and governorate, but that should
-be done after controlling for property type, bedrooms, and area.
+The useful finding is that property type appears to explain more variation than
+the broad geography in this snapshot: the apartment-to-villa median gap is
+29,198 EGP per square meter, while the Cairo-to-Alexandria geographic gap is
+16,467 EGP per square meter. This is why the dataset stores both normalized
+location and property type rather than relying on a raw location string.
 
 The result also shows why the extracted Group B fields matter. A raw price and
 area can produce `price_per_sqm`, but comparing listings fairly requires the

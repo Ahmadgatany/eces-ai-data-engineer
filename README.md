@@ -21,6 +21,15 @@ URL file after every page. The chosen scope is six slices: sale and rent in
 Cairo, Giza, and Alexandria. This gives geographic and market-purpose coverage
 while exceeding the 500-listing requirement.
 
+### What I Tried First
+
+The initial extraction approach made a single provider request per listing and
+stored failures without a targeted retry workflow. This was insufficient when
+Bayut detail pages became unavailable and when DNS, timeout, and OpenRouter
+provider errors occurred intermittently. The final pipeline added page-level
+URL persistence, append-only record storage, ID-based resume, failure logging,
+and bounded retries for transient errors.
+
 `src/extractor.py` fetches each detail page, parses structured Group A fields
 with BeautifulSoup, and sends only the listing evidence to OpenRouter for the
 description-derived Group B fields. The model is configured through
@@ -88,11 +97,14 @@ OpenRouter was used throughout the project. During early extraction attempts,
 the project used a paid OpenRouter route until its available credit was
 exhausted. The final 700-listing run used the free route
 `nvidia/nemotron-3-ultra-550b-a55b:free`, so the cost of the final run was
-`$0`. The paid route name and exact paid spend were not retained in the local
-run logs, so no unsupported token or dollar figure is claimed here. The
-pipeline also did not persist OpenRouter `usage` metadata; a future run should
-save prompt tokens, completion tokens, request count, and provider cost per
-listing for exact accounting.
+`$0`. The final run attempted 700 listings and completed 696; four were
+unavailable at extraction time. Retries mean the number of HTTP requests was
+higher than 700, but the original pipeline did not persist a per-request
+counter or OpenRouter `usage` metadata. The paid route name and exact paid
+spend were not retained in the local run logs, so no unsupported token or
+dollar figure is claimed here. A future run should save prompt tokens,
+completion tokens, retry count, request count, and provider cost per listing
+for exact accounting.
 
 ## Evaluation
 
